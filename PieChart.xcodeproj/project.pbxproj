@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -69,6 +69,12 @@
 		84B1B1702C82EF570051CB1D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		842C54DB2C9AFCB600794EBE /* Data */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Data; sourceTree = "<group>"; };
+		842C54E42C9AFDD000794EBE /* Gateways */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Gateways; sourceTree = "<group>"; };
+		842C54E52C9AFDD400794EBE /* UseCases */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = UseCases; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		84B1B1632C82EF560051CB1D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -122,6 +128,8 @@
 		84A5ACFE2C900AFE006BB3E8 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				842C54E52C9AFDD400794EBE /* UseCases */,
+				842C54E42C9AFDD000794EBE /* Gateways */,
 				841D330C2C94485800DC42EC /* Authorization */,
 			);
 			path = Network;
@@ -212,6 +220,7 @@
 		84B1B1682C82EF560051CB1D /* PieChart */ = {
 			isa = PBXGroup;
 			children = (
+				842C54DB2C9AFCB600794EBE /* Data */,
 				841D33122C944B4D00DC42EC /* New Group */,
 				84B1B1692C82EF560051CB1D /* PieChartApp.swift */,
 				84A5AD172C904CAC006BB3E8 /* Modifiers */,
@@ -249,6 +258,11 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				842C54DB2C9AFCB600794EBE /* Data */,
+				842C54E42C9AFDD000794EBE /* Gateways */,
+				842C54E52C9AFDD400794EBE /* UseCases */,
 			);
 			name = PieChart;
 			productName = PieChart;

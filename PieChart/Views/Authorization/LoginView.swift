@@ -8,18 +8,23 @@
 import SwiftUI
 
 struct LoginView: View {
-    @StateObject private var viewModel = LoginViewModel()
+    @StateObject var viewModel = LoginService()
+    @State private var username: String = ""
+    @State private var email: String = ""
+    @State private var password: String = ""
     @State private var showregister: Bool = false
     @State private var showAlert: Bool = false
+    @State private var isLogged: Bool = false
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("Username")
-            YTextField(text: $viewModel.username, placeholder: "Username")
+            YTextField(text: $username, placeholder: "Username")
             Text("Email")
-            YTextField(text: $viewModel.email, placeholder: "Email")
+            YTextField(text: $email, placeholder: "Email")
                 .padding(.bottom, 20)
             Text("Password")
-            YSecureField(text: $viewModel.password, placeholder: "Password")
+            YSecureField(text: $password, placeholder: "Password")
             
             Button(action: {
                 showregister = true
@@ -31,23 +36,17 @@ struct LoginView: View {
             Spacer()
             
             SubmitButton(title: "Submit") {
-                viewModel.login()
-                if viewModel.loginSuccess == false {
-                    showAlert = true
-                }
+                login(username: username, email: email, password: password)
             }
             
         }
-        .navigationDestination(isPresented: $showregister, destination: {
-            SignupView()
-        })
-        .navigationDestination(isPresented: $viewModel.loginSuccess, destination: {
-            ContentView()
+        .navigationDestination(isPresented: $isLogged, destination: {
+            MainView()
         })
         .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("Login Error"),
-                message: Text(viewModel.loginError ?? "Unknown error"),
+                message: Text("Unknown error"),
                 dismissButton: .default(Text("OK"))
             )
         }
@@ -55,6 +54,14 @@ struct LoginView: View {
         .navigationTitle("Login")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
+    }
+    
+    func login(username: String, email: String, password: String) {
+        viewModel.login(username: username, email: email, password: password) { result in
+            if viewModel.token != "" {
+                isLogged = true
+            }
+        }
     }
 }
 

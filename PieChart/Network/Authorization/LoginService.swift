@@ -11,29 +11,14 @@ import Foundation
 import Foundation
 
 class LoginService {
-    func login(username: String, email: String, password: String, completion: @escaping (LoginRes?) -> ()) {
+    
+    func login(username: String, email: String, password: String) async throws -> LoginRes? {
         var req = Request(url: "http://213.230.120.137:2056/dj-rest-auth/login", method: .post)
         let body: LoginBody = LoginBody(username: username, email: email, password: password)
         req.set(body: body)
-        
-       // let request = AppRequest.login(username: username, password: password).request
-        URLSession.shared.dataTask(with: req.request) { data, response, error in
-            if let data = data {
-                let decoder = JSONDecoder()
-                do {
-                    let decodedResponse = try decoder.decode(LoginRes.self, from: data)
-                    DispatchQueue.main.async {
-                        completion(decodedResponse)
-                    }
-                } catch {
-                    print("Error decoding: \(error)")
-                    completion(nil)
-                }
-            } else {
-                print("Error: \(error?.localizedDescription ?? "Unknown error")")
-                completion(nil)
-            }
-        }.resume()
+        let result = try await URLSession.shared.data(for: req.request)
+        let data = result.0
+        return try JSONDecoder().decode(LoginRes.self, from: data)
     }
 }
 
